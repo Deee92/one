@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.logging.Logger;
 
-@Command(name = "unit one", mixinStandardHelpOptions = true, version = "1.0",
+@Command(name = "one", mixinStandardHelpOptions = true, version = "1.0",
         description = "Finds instances of a program construct matching input visibility")
-public class Main implements Callable<Integer> {
+public class OneCommand implements Callable<Integer> {
     @Parameters(index = "0", description = "The path to the .java file to analyze")
     private String projectPath;
 
@@ -25,7 +25,7 @@ public class Main implements Callable<Integer> {
     private String inputVisibility;
     private VisibilityEnum visibility;
 
-    private final static Logger LOGGER = Logger.getLogger(Main.class.getName());
+    private final static Logger LOGGER = Logger.getLogger(OneCommand.class.getName());
 
     private void setProgramConstruct() {
         programConstruct = inputProgramConstruct.equalsIgnoreCase("class") ?
@@ -55,7 +55,7 @@ public class Main implements Callable<Integer> {
     }
 
     public static void main(String[] args) {
-        int exitCode = new CommandLine(new Main()).execute(args);
+        int exitCode = new CommandLine(new OneCommand()).execute(args);
         System.exit(exitCode);
     }
 }

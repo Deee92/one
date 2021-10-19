@@ -8,7 +8,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class MainTest {
+public class OneCommandTest {
 
     static ProjectLauncher launcher;
     static String projectPath = Thread.currentThread().getContextClassLoader().getResource("NeuronString.java").getPath();
