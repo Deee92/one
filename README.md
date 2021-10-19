@@ -31,6 +31,11 @@ The extra-info is given as follows:
 attribute1=value1;attribute2=value2
 ```
 
+The parser unit prints an output with the following format:
+```
+{"parseResultPath":"/home/khaes/phd/courses/wasp-4/one/../tmp/parsed.res"}
+```
+
 ## one unit
 
 This unit uses [Spoon](https://spoon.gforge.inria.fr/) to find program constructs from a Java source file, based on their visibility.
