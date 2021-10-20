@@ -1,11 +1,14 @@
 package se.wasp.parser.runner;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.apache.commons.io.FileUtils;
 import se.wasp.parser.processor.ElementInfoProcessor;
 import spoon.Launcher;
 import spoon.reflect.CtModel;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -29,6 +32,10 @@ public class ParserLauncher {
     public void printModel(String outputPath) throws IOException {
         ElementInfoProcessor elementInfoProcessor = new ElementInfoProcessor();
         model.processWith(elementInfoProcessor);
-        FileUtils.writeLines(new File(outputPath), elementInfoProcessor.getElementsFoundInfo());
+
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        FileWriter fw = new FileWriter(outputPath);
+        gson.toJson(elementInfoProcessor.getSerializedAST(), fw);
+        fw.close();
     }
 }

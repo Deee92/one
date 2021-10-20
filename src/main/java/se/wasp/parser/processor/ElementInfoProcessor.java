@@ -1,5 +1,6 @@
 package se.wasp.parser.processor;
 
+import se.wasp.parser.models.SerializedAST;
 import spoon.processing.AbstractProcessor;
 import spoon.reflect.cu.SourcePosition;
 import spoon.reflect.declaration.CtElement;
@@ -9,6 +10,7 @@ import spoon.reflect.declaration.ModifierKind;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -25,63 +27,63 @@ public class ElementInfoProcessor extends AbstractProcessor<CtElement> {
             String.format("%s,%s,%s,%s,%s", ELEMENT_TYPE, LOCATION, EXTRA_INFO, PARENT_ELEMENT_TYPE, PARENT_LOCATION);
     private static final String INFO_SEPARATOR = ";";
 
-    private List<String> elementsFoundInfo = new ArrayList<>();
+    private SerializedAST serializedAST;
+
+    public ElementInfoProcessor(){
+        serializedAST = new SerializedAST();
+        serializedAST.setElements(new ArrayList<>());
+    }
 
     @Override
     public void process(CtElement element) {
-        elementsFoundInfo.add(getElemStr(element));
+        serializedAST.getElements().add(getASTElement(element));
     }
 
-    private String getElemStr(CtElement element) {
+    private SerializedAST.ASTElement getASTElement(CtElement element) {
         CtElement parent = element.getParent();
-        String parentType = parent == null ? "null" : parent.getClass().getSimpleName(),
-                parentLocation = getElemLocation(parent);
+        String parentType = parent == null ? "null" : parent.getClass().getSimpleName();
 
-        String elemInfo = ELEM_STR_TEMPLATE
-//                .replace(IS_COMMENT, isComment + "")
-                .replace(ELEMENT_TYPE, element.getClass().getSimpleName())
-                .replace(LOCATION, getElemLocation(element))
-                .replace(EXTRA_INFO, getExtraInfo(element))
-                .replace(PARENT_ELEMENT_TYPE, parentType)
-                .replace(PARENT_LOCATION, parentLocation);
-
-        return elemInfo;
+        return new SerializedAST.ASTElement(element.getClass().getSimpleName(), parentType, getElemLocation(element),
+                getElemLocation(parent), getExtraInfo(element));
     }
 
-    private String getElemLocation(CtElement element) {
-        String elemLocation = "null";
+    private SerializedAST.ASTElement.Location getElemLocation(CtElement element) {
+        SerializedAST.ASTElement.Location elemLocation = null;
         if (element.getPosition().isValidPosition()) {
             SourcePosition elemPos = element.getPosition();
-            elemLocation = Stream.of(
-                    elemPos.getFile().getAbsolutePath(),
+            elemLocation = new SerializedAST.ASTElement.Location(
                     elemPos.getLine(),
-                    elemPos.getColumn(),
                     elemPos.getEndLine(),
-                    elemPos.getEndColumn()).map(Object::toString).collect(Collectors.joining(INFO_SEPARATOR));
+                    elemPos.getColumn(),
+                    elemPos.getEndColumn(),
+                    elemPos.getFile().getAbsolutePath()
+            );
         }
         return elemLocation;
     }
 
-    public List<String> getElementsFoundInfo() {
-        return elementsFoundInfo;
-    }
-
-    private String getExtraInfo(CtElement element) {
-        List<String> extraInfoLst = new ArrayList<>();
+    private SerializedAST.ASTElement.ExtraInfo getExtraInfo(CtElement element) {
+        SerializedAST.ASTElement.ExtraInfo extraInfo = new SerializedAST.ASTElement.ExtraInfo();
+        extraInfo.setPairs(new HashMap<>());
 
         if (element instanceof CtModifiable) {
             if (!element.getPath().toString().contains("subPackage[name=java]")) {
                 CtModifiable modifiable = (CtModifiable) element;
                 Set<ModifierKind> modifiers = modifiable.getModifiers();
                 if (modifiers.toString().contains("public"))
-                    extraInfoLst.add("visibility=public");
+                    extraInfo.getPairs().put("visibility", "public");
                 else if (modifiers.toString().contains("private"))
-                    extraInfoLst.add("visibility=private");
+                    extraInfo.getPairs().put("visibility", "private");
                 else if (modifiers.toString().contains("protected"))
-                    extraInfoLst.add("visibility=protected");
-                extraInfoLst.add(element.getPath().toString());
+                    extraInfo.getPairs().put("visibility", "protected");
+                extraInfo.getPairs().put("path", element.getPath().toString());
             }
         }
-        return extraInfoLst.stream().collect(Collectors.joining(INFO_SEPARATOR));
+
+        return extraInfo;
+    }
+
+    public SerializedAST getSerializedAST() {
+        return serializedAST;
     }
 }

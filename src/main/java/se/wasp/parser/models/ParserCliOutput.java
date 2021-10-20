@@ -1,9 +1,9 @@
 package se.wasp.parser.models;
 
-public class BasicOutput {
+public class ParserCliOutput {
     private String parseResultPath;
 
-    public BasicOutput(String parseResultPath){
+    public ParserCliOutput(String parseResultPath){
         this.parseResultPath = parseResultPath;
     }
 
