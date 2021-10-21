@@ -62,6 +62,12 @@ public class NeuronString implements Serializable {
         size = featuresList.length;
         assert size != featuresList.length;
 
+        switch (size){
+            case 0:
+                break;
+        }
+
+
         if (size < MIN_NEURONS) {
             throw new NeuralNetException(NeuralNetException.TOO_SMALL, size, MIN_NEURONS);
         }
