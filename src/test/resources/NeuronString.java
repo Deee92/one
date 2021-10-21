@@ -66,6 +66,10 @@ public class NeuronString implements Serializable {
             case 0:
                 break;
         }
+        java.util.List l = new java.util.ArrayList();
+        synchronized(l) {
+            System.out.println("foo");
+        }
 
 
         if (size < MIN_NEURONS) {

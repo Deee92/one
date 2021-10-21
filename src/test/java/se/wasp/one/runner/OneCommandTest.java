@@ -66,7 +66,14 @@ public class OneCommandTest {
     @Test
     public void testThatSwitchAreFound() {
         launcher = new ProjectLauncher(projectPath, ConstructEnum.NONE, VisibilityEnum.NONE, SyntacticEnum.SWITCH);
-        List<String> switchfound = launcher.processModel();
-        assertEquals(1, switchfound.size(), "There are 1 switch construct in NeuronString.java");
+        List<String> switchFound = launcher.processModel();
+        assertEquals(1, switchFound.size(), "There are 1 switch construct in NeuronString.java");
+    }
+
+    @Test
+    public void testThatSynchronizedAreFound() {
+        launcher = new ProjectLauncher(projectPath, ConstructEnum.NONE, VisibilityEnum.NONE, SyntacticEnum.SYNCHRONIZED);
+        List<String> synchronizedFound = launcher.processModel();
+        assertEquals(1, synchronizedFound.size(), "There are 1 synchronized construct in NeuronString.java");
     }
 }
