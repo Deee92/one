@@ -30,4 +30,6 @@ It currently supports public and private classes or methods.
 ubu /path/to/a/java/SourceFile.java one \
     --find <method (default) OR class> \
     --visibility <public (default) OR private>
-  ```
+    --locate <loop (default) OR if OR assertion OR switch OR synchronized OR flow_break OR try
+
+```
