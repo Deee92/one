@@ -83,4 +83,11 @@ public class OneCommandTest {
         List<String> flowBreakFound = launcher.processModel();
         assertEquals(10, flowBreakFound.size(), "There are 10 flow break constructs in NeuronString.java");
     }
+
+    @Test
+    public void testThatTryAreFound() {
+        launcher = new ProjectLauncher(projectPath, ConstructEnum.NONE, VisibilityEnum.NONE, SyntacticEnum.TRY);
+        List<String> tryFound = launcher.processModel();
+        assertEquals(1, tryFound.size(), "There are 1 try constructs in NeuronString.java");
+    }
 }

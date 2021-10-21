@@ -70,6 +70,9 @@ public class NeuronString implements Serializable {
         synchronized(l) {
             System.out.println("foo");
         }
+        try {
+            System.out.println("foo");
+        } catch (Exception ignore) {}
 
 
         if (size < MIN_NEURONS) {
