@@ -46,6 +46,13 @@ public class OneCommandTest {
     public void testThatLoopsAreFound() {
         launcher = new ProjectLauncher(projectPath, ConstructEnum.NONE, VisibilityEnum.NONE, SyntacticEnum.LOOP);
         List<String> loopsFound = launcher.processModel();
-        assertEquals(6, loopsFound.size(), "There are two private classes in NeuronString.java");
+        assertEquals(6, loopsFound.size(), "There are 6 loop constructs in NeuronString.java");
+    }
+
+    @Test
+    public void testThatIfAreFound() {
+        launcher = new ProjectLauncher(projectPath, ConstructEnum.NONE, VisibilityEnum.NONE, SyntacticEnum.IF);
+        List<String> ifFound = launcher.processModel();
+        assertEquals(4, ifFound.size(), "There are 4 if constructs in NeuronString.java");
     }
 }
