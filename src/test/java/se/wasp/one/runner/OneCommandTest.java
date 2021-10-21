@@ -76,4 +76,11 @@ public class OneCommandTest {
         List<String> synchronizedFound = launcher.processModel();
         assertEquals(1, synchronizedFound.size(), "There are 1 synchronized construct in NeuronString.java");
     }
+
+    @Test
+    public void testThatFlowBreakAreFound() {
+        launcher = new ProjectLauncher(projectPath, ConstructEnum.NONE, VisibilityEnum.NONE, SyntacticEnum.FLOW_BREAK);
+        List<String> flowBreakFound = launcher.processModel();
+        assertEquals(10, flowBreakFound.size(), "There are 10 flow break constructs in NeuronString.java");
+    }
 }
