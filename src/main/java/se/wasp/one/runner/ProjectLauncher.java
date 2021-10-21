@@ -1,6 +1,7 @@
 package se.wasp.one.runner;
 
 import se.wasp.one.processor.ClassProcessor;
+import se.wasp.one.processor.IfProcessor;
 import se.wasp.one.processor.MethodProcessor;
 import se.wasp.one.processor.LoopProcessor;
 import se.wasp.one.util.ConstructEnum;
@@ -47,6 +48,10 @@ public class ProjectLauncher {
       LoopProcessor loopProcessor = new LoopProcessor();
       model.processWith(loopProcessor);
       return loopProcessor.getLoopssFound();
+    } else if (syntacticConstruct.equals(SyntacticEnum.IF)){
+      IfProcessor ifProcessor = new IfProcessor();
+      model.processWith(ifProcessor);
+      return ifProcessor.getIfFound();
     }
 
 
