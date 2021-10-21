@@ -57,6 +57,10 @@ public class ProjectLauncher {
       SwitchProcessor switchProcessor = new SwitchProcessor();
       model.processWith(switchProcessor);
       return switchProcessor.getSwitchFound();
+    } else if (syntacticConstruct.equals(SyntacticEnum.SYNCHRONIZED)) {
+      SynchronizedProcessor synchronizedProcessor = new SynchronizedProcessor();
+      model.processWith(synchronizedProcessor);
+      return synchronizedProcessor.getSynchronizedFound();
     }
 
 
