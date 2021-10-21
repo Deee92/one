@@ -64,6 +64,10 @@ public class ProjectLauncher {
       FlowBreakProcessor flowBreakProcessor = new FlowBreakProcessor();
       model.processWith(flowBreakProcessor);
       return flowBreakProcessor.getFlowBreakFound();
+    } else if (syntacticConstruct.equals(SyntacticEnum.TRY)) {
+      TryProcessor tryProcessor = new TryProcessor();
+      model.processWith(tryProcessor);
+      return tryProcessor.getTryFound();
     }
 
 
