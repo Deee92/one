@@ -6,7 +6,7 @@ public enum SyntacticEnum {
     ASSERTION,
     SWITCH,
     SYNCHRONIZED,
-    FLOW_OPERATIONS,
+    FLOW_BREAK,
     TRY,
     NONE
 }

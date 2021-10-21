@@ -9,7 +9,6 @@ import spoon.reflect.CtModel;
 
 import java.util.List;
 import java.util.logging.Logger;
-import java.util.ArrayList;
 
 public class ProjectLauncher {
 
@@ -61,6 +60,10 @@ public class ProjectLauncher {
       SynchronizedProcessor synchronizedProcessor = new SynchronizedProcessor();
       model.processWith(synchronizedProcessor);
       return synchronizedProcessor.getSynchronizedFound();
+    } else if (syntacticConstruct.equals(SyntacticEnum.FLOW_BREAK)) {
+      FlowBreakProcessor flowBreakProcessor = new FlowBreakProcessor();
+      model.processWith(flowBreakProcessor);
+      return flowBreakProcessor.getFlowBreakFound();
     }
 
 

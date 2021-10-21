@@ -72,8 +72,8 @@ public class OneCommand implements Callable<Integer> {
                 case "synchronized":
                     syntactic = SyntacticEnum.SYNCHRONIZED;
                     break;
-                case "flow_operations":
-                    syntactic = SyntacticEnum.FLOW_OPERATIONS;
+                case "flow_break":
+                    syntactic = SyntacticEnum.FLOW_BREAK;
                     break;
                 case "try":
                     syntactic = SyntacticEnum.TRY;
