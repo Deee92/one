@@ -53,6 +53,10 @@ public class ProjectLauncher {
       AssertionProcessor assertionProcessor = new AssertionProcessor();
       model.processWith(assertionProcessor);
       return assertionProcessor.getAssertionFound();
+    } else if (syntacticConstruct.equals(SyntacticEnum.SWITCH)) {
+      SwitchProcessor switchProcessor = new SwitchProcessor();
+      model.processWith(switchProcessor);
+      return switchProcessor.getSwitchFound();
     }
 
 
