@@ -55,4 +55,11 @@ public class OneCommandTest {
         List<String> ifFound = launcher.processModel();
         assertEquals(4, ifFound.size(), "There are 4 if constructs in NeuronString.java");
     }
+
+    @Test
+    public void testThatAssertAreFound() {
+        launcher = new ProjectLauncher(projectPath, ConstructEnum.NONE, VisibilityEnum.NONE, SyntacticEnum.ASSERTION);
+        List<String> assertFound = launcher.processModel();
+        assertEquals(1, assertFound.size(), "There are 1 assert construct in NeuronString.java");
+    }
 }
